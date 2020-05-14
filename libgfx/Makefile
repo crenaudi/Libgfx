@@ -6,7 +6,7 @@
 #    By: crenaudi <crenaudi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:13:30 by crenaudi          #+#    #+#              #
-#    Updated: 2020/05/14 18:24:13 by padelord         ###   ########.fr        #
+#    Updated: 2020/05/14 18:36:34 by padelord         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CFLAGS = -Wall -Wextra
 CFLAGS += -Werror
 
 ifeq ($(shell uname), Darwin)
-  CFLAGS += -I./mlx_macos
+  IDIR	+=	./includes/MacOs
   LDFLAGS = -framework OpenGl -framework AppKit
 else
   IDIR	+=	./includes/Linux
