@@ -6,7 +6,7 @@
 #    By: crenaudi <crenaudi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:13:30 by crenaudi          #+#    #+#              #
-#    Updated: 2020/05/14 18:37:38 by padelord         ###   ########.fr        #
+#    Updated: 2020/05/14 18:47:45 by padelord         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,14 +68,14 @@ _S5		=	bresenham.c
 _D6		=	engine
 _S6		=	window.c
 
-_SRC		=	$(addprefix $(_D1)/, $(_S1))
-_SRC		+=	$(addprefix $(_D2)/, $(_S2))
-_SRC		+=	$(addprefix $(_D3)/, $(_S3))
-_SRC		+=	$(addprefix $(_D4)/, $(_S4))
-_SRC		+=	$(addprefix $(_D5)/, $(_S5))
-_SRC		+=	$(addprefix $(_D6)/, $(_S6))
+_SRC	=	$(addprefix $(_D1)/, $(_S1))
+_SRC	+=	$(addprefix $(_D2)/, $(_S2))
+_SRC	+=	$(addprefix $(_D3)/, $(_S3))
+_SRC	+=	$(addprefix $(_D4)/, $(_S4))
+_SRC	+=	$(addprefix $(_D5)/, $(_S5))
+_SRC	+=	$(addprefix $(_D6)/, $(_S6))
 
-SRC	=	$(addprefix $(SDIR)/,$(_SRC))
+SRC		=	$(addprefix $(SDIR)/,$(_SRC))
 
 OBJ		=	$(SRC:$(SDIR)/%.c=$(ODIR)/%.o)
 

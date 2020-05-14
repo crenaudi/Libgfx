@@ -37,7 +37,7 @@ CFLAGS	+=	$(addprefix -I,$(IDIR))
 all: $(NAME)
 
 lib:
-	@make -sC $(D_LGFX)
+	@make -C $(D_LGFX)
 	@make -sC $(D_LFT)
 
 libclean:
