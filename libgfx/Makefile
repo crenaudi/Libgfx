@@ -6,7 +6,7 @@
 #    By: crenaudi <crenaudi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 14:13:30 by crenaudi          #+#    #+#              #
-#    Updated: 2020/05/14 18:36:34 by padelord         ###   ########.fr        #
+#    Updated: 2020/05/14 18:37:38 by padelord         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,7 @@ else
   LDFLAGS = -lXext -lX11 -lbsd
 endif
 
-DEPS	=	$(IDIR)/%.h
-DEPS	+=	Makefile
+DEPS	=	Makefile
 
 CFLAGS	+=	$(addprefix -I, $(IDIR))
 
