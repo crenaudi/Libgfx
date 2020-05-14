@@ -6,7 +6,7 @@
 /*   By: crenaudi <crenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 18:35:05 by crenaudi          #+#    #+#             */
-/*   Updated: 2020/05/09 23:34:15 by padelord         ###   ########.fr       */
+/*   Updated: 2020/05/14 18:29:11 by padelord         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_sprite		t_sprite;
 typedef	struct s_img		t_img;
 typedef struct s_color		t_color;
 typedef struct s_hsl		t_hsl;
+typedef struct s_win		t_win;
 typedef union u_rgb			t_rgb;
 
 struct					s_cam2d
@@ -148,6 +149,12 @@ struct					s_bresenham
 	float				scl;
 	t_vecf2				tr;
 	float				bert;
+};
+
+struct s_win
+{
+	void	*ptr;
+	
 };
 
 /*
