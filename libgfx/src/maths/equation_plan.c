@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   distance.c                                         :+:      :+:    :+:   */
+/*   equation_plan.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crenaudi <crenaudi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,24 @@
 
 #include "gfx.h"
 
-float	dist_vecf2(t_vecf2 v2)
+void    make_divline(t_divline *dvl, t_vecf3 p1, t_vecf3 p2)
 {
-	return (sqrt(v2.x * v2.x + v2.y * v2.y));
+    dvl->p = p1;
+    dvl->dx = p2.x - p1.x;
+    dvl->dy = p2.y - p1.y;
+}
+
+float    equation_plan(t_divline *v1, t_divline *v2)
+{
+    return ((v1->p.x - v2->p.x) * v1->dy + (v2->p.y - v1->p.y) * v1->dx);
+}
+
+float    cross_plan(t_divline *v1, t_divline *v2)
+{
+    return ((v1->dy * v2->dx) - (v1->dx * v2->dy));
+}
+
+float    norm_plan(t_divline *v)
+{
+    return (sqrt(v->dx * v->dx + v->dy * v->dy));
 }

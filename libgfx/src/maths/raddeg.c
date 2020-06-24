@@ -27,3 +27,12 @@ float	rad2deg(float r)
 	d = (r / M_PI) * 180.0f;
 	return (d);
 }
+
+float	rad_adjust(float a)
+{
+	if (a < -M_PI)
+        a += 2 * M_PI;
+    if (a > M_PI)
+        a -= 2 * M_PI;
+	return (a);
+}

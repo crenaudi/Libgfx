@@ -56,15 +56,29 @@ typedef	struct s_img		t_img;
 typedef struct s_color		t_color;
 typedef struct s_hsl		t_hsl;
 typedef struct s_win		t_win;
+typedef struct s_divline	t_divline;
 typedef union u_rgb			t_rgb;
+
+struct s_divline
+{
+    t_vecf3      		p;
+    float        		dx;
+    float        		dy;
+};
 
 struct					s_cam2d
 {
 	float				fov;
 	float				half_fov;
+	float       		clipangle;
 	float				speed_move;
 	float				speed_angle;
+	float				depth;
 	t_vecf2				dir;
+	t_vecf2     		depthright;
+    t_vecf2     		depthleft;
+    t_divline   		dvl_lr;
+    t_divline   		dvl_fb;
 };
 
 struct					s_cam3d
@@ -153,14 +167,14 @@ struct					s_bresenham
 
 struct s_win
 {
-	void	*ptr;
-	
+	void				*ptr;
 };
 
-/*
-** color :
-** hsl2rgb ou hsltorgb? dans le .c c'est écrit hsltorgb
-*/
+/*******************************************************************************
+
+	COLOR :
+	hsl2rgb ou hsltorgb? dans le .c c'est écrit hsltorgb
+*******************************************************************************/
 
 float					float_min(float *n);
 float					float_max(float *n);
@@ -170,18 +184,24 @@ t_color					init_color(int color);
 int						lerp_color(t_color s, t_color e, float t);
 int						lerp_non_init_color(int a, int b, float t);
 
-/*
-** Maths : il manque pas les quaternions? (add/mult/equal...)
-** Edit: j'ai trouvé quaternion_equal au milieu des caméras ;)
-** mais pas les autres...
-*/
+/*******************************************************************************
 
-float					vecf2_dist(t_vecf2 v2);
+	MATHS : il manque pas les quaternions? (add/mult/equal...)
+	Edit: j'ai trouvé quaternion_equal au milieu des caméras ;)
+	mais pas les autres...
+*******************************************************************************/
+
+float					dist_vecf2(t_vecf2 v2);
+float					dot_product3vecf(t_point a, t_point b);
+float					dot_product2vecf(t_vecf2 a, t_vecf2 b);
+t_point					cross_product3vecf(t_point a, t_point b);
+float					cross_product2vecf(t_vecf2 a, t_vecf2 b);
+t_vecf2					sub_product2vecf(t_vecf2 a, t_vecf2 b);
+t_vecf2					add_product2vecf(t_vecf2 a, t_vecf2 b);
 t_point					normalize(t_point v);
-float					dot_product(t_vecf3 a, t_vecf3 b);
-t_point					cross_product(t_vecf3 a, t_vecf3 b);
 float					deg2rad(float d);
 float					rad2deg(float r);
+float					rad_adjust(float a);
 void					rotate_x(t_point *p, float a);
 void					rotate_y(t_point *p, float a);
 void					rotate_z(t_point *p, float a);
@@ -191,23 +211,34 @@ float					spherical_phi(t_point v);
 t_point					to_vec_spherical(t_point v);
 void					spherical_perspective(t_point v, t_point *p);
 bool					quaternion_equal(t_q *q1, t_q *q2);
+void    				make_divline(t_divline *dvl, t_vecf3 p1, t_vecf3 p2);
+float    				equation_plan(t_divline *v1, t_divline *v2);
+float    				cross_plan(t_divline *v1, t_divline *v2);
+float    				norm_plan(t_divline *v);
+int 					evaluate_intersect_line(t_vecf2 x[2], t_vecf2 y[2],
+	float tol);
+float 					intersect_vector(t_divline *v2, t_divline *v1);
 
-/*
-** Struct_cam :
-*/
+/*******************************************************************************
 
-t_cam2d					init_cam2d();
+	STRUCT_CAM :
+*******************************************************************************/
+
+t_cam2d					init_cam2d(float x, float y, float eyes_dir);
 void					clean_cam2d(t_cam2d *c);
+void					update_cam2d(t_cam2d *c, float x, float y,
+	float eyes_dir);
 t_cam3d					init_cam3d(t_vecf3 from, t_vecf3 to, t_vecf3 tmp);
 void					matrice_cam3d(t_cam3d *c, t_vecf3 from, t_vecf3 to,
 		t_vecf3 tmp);
 void					clean_cam3d(t_cam3d *c);
 
-/*
-** Struct_img :
-** apply_tx_scaled n'est pas codé, on a dit qu'on n'en avait pas besoin pour
-** wolf, mais elle ressemblera à ça dans le doom je pense
-*/
+/*******************************************************************************
+
+	STRUCT_IMG :
+	apply_tx_scaled n'est pas codé, on a dit qu'on n'en avait pas besoin pour
+	wolf, mais elle ressemblera à ça dans le doom je pense
+*******************************************************************************/
 
 t_img					*init_image(void *mlx_ptr, int w, int h);
 t_texture				*init_tx(char *path, t_vec2 size,
@@ -228,9 +259,10 @@ int						trigger_sprite(t_sprite *sprite);
 int						apply_tx_scaled(t_texture txt, t_img *img, t_vec2 pos,
 	float scale);
 
-/*
-** trace :
-*/
+/*******************************************************************************
+
+ 	TRACE :
+*******************************************************************************/
 
 void					init_anim_color(t_bresenham *b, int cwh[4],
 	float scl_bert[2], t_vecf2 tr);

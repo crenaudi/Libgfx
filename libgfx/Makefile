@@ -44,6 +44,8 @@ _S1		=	distance.c			\
 			raddeg.c			\
 			rotation.c			\
 			scale.c				\
+			intersection.c		\
+			equation_plan.c		\
 			spherical_matrice.c
 
 _D2		=	struct_cam
