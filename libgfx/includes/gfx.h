@@ -74,6 +74,8 @@ struct					s_cam2d
 	float				speed_move;
 	float				speed_angle;
 	float				depth;
+    float				amax;
+    float				amin;
 	t_vecf2				dir;
 	t_vecf2     		depthright;
     t_vecf2     		depthleft;
@@ -240,6 +242,7 @@ void					clean_cam3d(t_cam3d *c);
 	wolf, mais elle ressemblera à ça dans le doom je pense
 *******************************************************************************/
 
+void	                putpx(t_img *img, t_vec2 i, t_vec2 size, int color);
 t_img					*init_image(void *mlx_ptr, int w, int h);
 t_texture				*init_tx(char *path, t_vec2 size,
 		int nframe);

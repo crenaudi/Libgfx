@@ -36,10 +36,10 @@ void		matrice_cam3d(t_cam3d *c, t_vecf3 from, t_vecf3 to, t_vecf3 tmp)
 	tmp.y = 1.0;
 	tmp.z = 0.0;
 	forward = normalize(from - to);
-	right = cross_product(normalize(tmp), forward);
+	right = cross_product3vecf(normalize(tmp), forward);
 	if (right.x == 0.0)
 		right.x = 1.0;
-	up = cross_product(forward, right);
+	up = cross_product3vecf(forward, right);
 	c->right = right;
 	c->up = up;
 	c->forward = forward;

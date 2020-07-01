@@ -36,22 +36,15 @@ void		clean_cam2d(t_cam2d *c)
 
 void		update_cam2d(t_cam2d *c, float x, float y, float eyes_dir)
 {
-	float anglr;
-	float angll;
-
-	anglr = rad_adjust(eyes_dir + c->half_fov);
-	angll = rad_adjust(eyes_dir - c->half_fov);
-	printf("CAM + : %f, - : %f\n", anglr, angll);
-	printf("CAM + : %f, - : %f\n", rad2deg(anglr), rad2deg(angll));
+	c->amax = rad_adjust(eyes_dir + c->half_fov);
+	c->amin = rad_adjust(eyes_dir - c->half_fov);
     c->dvl_lr.p = (t_vecf3){x, y, 0};
     c->dvl_lr.dx = sinf(eyes_dir);
     c->dvl_lr.dy = cosf(eyes_dir);
-    c->depthleft.x = x + sinf(anglr) * c->depth;
-    c->depthleft.y = y + cosf(anglr) * c->depth;
-    c->depthright.x = x + sinf(angll) * c->depth;
-    c->depthright.y = y + cosf(angll) * c->depth;
-	printf("CAM left : %f, %f right : %f, %f\n",c->depthleft.x, c->depthleft.y,
-		c->depthright.x, c->depthright.y);
+    c->depthleft.x = x + sinf(c->amax) * c->depth;
+    c->depthleft.y = y + cosf(c->amax) * c->depth;
+    c->depthright.x = x + sinf(c->amin) * c->depth;
+    c->depthright.y = y + cosf(c->amin) * c->depth;
     c->dvl_fb.p = (t_vecf3){c->depthright.x, c->depthright.y, 0};
     c->dvl_fb.dx = c->depthleft.x - c->depthright.x;
     c->dvl_fb.dy = c->depthleft.y - c->depthright.y;

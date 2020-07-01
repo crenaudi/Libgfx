@@ -12,6 +12,16 @@
 
 #include "gfx.h"
 
+void	putpx(t_img *img, t_vec2 i, t_vec2 size, int color)
+{
+	int	index;
+
+	index = i.x + i.y * size.y;
+	if (index < 0 || index >= size.x * size.y)
+		return ;
+	img->data[index] = color;
+}
+
 t_img	*init_image(void *mlx_ptr, int w, int h)
 {
 	t_img	*img;

@@ -19,7 +19,7 @@ void			init_anim_color(t_bresenham *b, int cwh[4], float scl_bert[2],
 		b->tmp.x)) : init_color(cwh[0]);
 	b->c2 = b->tmp.y != 0.0 ? init_color(lerp_non_init_color(cwh[0], cwh[1],
 		b->tmp.y)) : init_color(cwh[0]);
-	b->t = vecf2_dist(b->p2 - b->p1);
+	b->t = dist_vecf2(b->p2 - b->p1);
 	b->w = cwh[3];
 	b->h = cwh[4];
 	b->scl = scl_bert[0];
@@ -42,16 +42,6 @@ t_bresenham		init_trace(t_point p[2], t_vecf3 z)
 	return (b);
 }
 
-static void		putpx(t_img *img, t_vec2 i, t_vec2 size, int color)
-{
-	int	index;
-
-	index = i.x + i.y * size.y;
-	if (index < 0 || index >= size.x * size.y)
-		return ;
-	img->data[index] = color;
-}
-
 void			need_px(t_bresenham *b, t_img *img)
 {
 	int x;
@@ -61,7 +51,7 @@ void			need_px(t_bresenham *b, t_img *img)
 	y = b->p1.y + (((b->h / 2) - (int)b->scl) + b->tr.x);
 	if ((x >= 0 && x <= b->w) && (y >= 0 && y <= (b->h)))
 		putpx(img, (t_vec2){x, y}, (t_vec2){b->h, b->w}, lerp_color(b->c2,
-			b->c1, fmod(((vecf2_dist(b->p2 - b->p1)) / b->t) + b->bert, 1.0)));
+			b->c1, fmod(((dist_vecf2(b->p2 - b->p1)) / b->t) + b->bert, 1.0)));
 }
 
 void			line(t_bresenham b, t_img *img)
