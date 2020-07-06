@@ -226,10 +226,10 @@ float 					intersect_vector(t_divline *v2, t_divline *v1);
 	STRUCT_CAM :
 *******************************************************************************/
 
-t_cam2d					init_cam2d(float x, float y, float eyes_dir);
+t_cam2d					init_cam2d(float x, float y, float eyes_dir, float xplan);
 void					clean_cam2d(t_cam2d *c);
 void					update_cam2d(t_cam2d *c, float x, float y,
-	float eyes_dir);
+	float eyes_dir, float xplan);
 t_cam3d					init_cam3d(t_vecf3 from, t_vecf3 to, t_vecf3 tmp);
 void					matrice_cam3d(t_cam3d *c, t_vecf3 from, t_vecf3 to,
 		t_vecf3 tmp);

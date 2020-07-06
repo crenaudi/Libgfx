@@ -13,7 +13,7 @@
 #include "gfx.h"
 #include <stdio.h>
 
-t_cam2d		init_cam2d(float x, float y, float eyes_dir)
+t_cam2d		init_cam2d(float x, float y, float eyes_dir, float xplan)
 {
 	t_cam2d		c;
 
@@ -25,7 +25,7 @@ t_cam2d		init_cam2d(float x, float y, float eyes_dir)
 	c.speed_move = 100.;
 	c.speed_angle = 100.;
 	c.dir = 0;
-	update_cam2d(&c, x, y, eyes_dir);
+	update_cam2d(&c, x, y, eyes_dir, xplan);
 	return (c);
 }
 
@@ -34,11 +34,15 @@ void		clean_cam2d(t_cam2d *c)
 	ft_bzero(c, sizeof(t_cam2d));
 }
 
-void		update_cam2d(t_cam2d *c, float x, float y, float eyes_dir)
+void		update_cam2d(t_cam2d *c, float x, float y, float eyes_dir, float xplan)
 {
+	(void)xplan;
 	c->amax = rad_adjust(eyes_dir + c->half_fov);
 	c->amin = rad_adjust(eyes_dir - c->half_fov);
-    c->dvl_lr.p = (t_vecf3){x, y, 0};
+	printf("view player : %f\n", rad2deg(eyes_dir));
+	printf("angle max : %f %f\n", rad_adjust(eyes_dir + c->half_fov), c->amax);
+	printf("angle min : %f %f\n", rad_adjust(eyes_dir - c->half_fov), c->amin);
+	c->dvl_lr.p = (t_vecf3){x, y, 0};
     c->dvl_lr.dx = sinf(eyes_dir);
     c->dvl_lr.dy = cosf(eyes_dir);
     c->depthleft.x = x + sinf(c->amax) * c->depth;
